@@ -5,14 +5,33 @@
  */
 package test;
 
-import util.HibernateUtil;
+import dao.IDao;
+import entities.Machine;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import service.MachineService;
 
 /**
  *
  * @author akhmim
- */
+ */    
 public class Test {
+
     public static void main(String[] args) {
-        HibernateUtil.getSessionFactory();
+//        HibernateUtil.getSessionFactory();
+        IDao<Machine> dao;
+        try {
+            dao = new MachineService();
+//            dao.create(new Machine("ER44", "HP", 1000));
+//            dao.create(new Machine("ER46", "LENOVO", 3000));
+//            dao.create(new Machine("ER48", "ASUS", 5000));
+
+            for (Machine m : dao.findAll()) {
+                System.out.println(m);
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

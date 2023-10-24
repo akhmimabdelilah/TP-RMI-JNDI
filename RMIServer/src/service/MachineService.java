@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
+
 /**
  *
  * @author akhmim
@@ -129,7 +130,26 @@ public class MachineService extends UnicastRemoteObject implements IDao<Machine>
 
     @Override
     public List<Machine> findAll() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        Transaction tx = null;
+        List<Machine> machines = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            machines = session.getNamedQuery("findAllNative").list();
+            tx.commit();
+
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return machines;
     }
 
 }

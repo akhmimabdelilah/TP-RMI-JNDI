@@ -12,6 +12,7 @@ import java.util.List;
 /**
  *
  * @author akhmim
+ * @param <T>
  */
 public interface IDao<T> extends Remote {
 

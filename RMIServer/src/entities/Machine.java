@@ -17,9 +17,10 @@ import javax.persistence.NamedQuery;
  * @author akhmim
  */
 @Entity
-@NamedQuery(name="findAll", query = "from Machine")
-@NamedNativeQuery(name = "findAllNative", query="SELECT * FROM machine")
+@NamedQuery(name = "findAll", query = "from Machine")
+@NamedNativeQuery(name = "findAllNative", query = "SELECT * FROM machine", resultClass = Machine.class)
 public class Machine {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -68,11 +69,9 @@ public class Machine {
         return prix;
     }
 
-
     @Override
     public String toString() {
         return "Machine{" + "id=" + id + ", ref=" + ref + ", marque=" + marque + ", prix=" + prix + '}';
     }
 
-    
 }

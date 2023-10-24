@@ -6,24 +6,13 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.NamedQuery;
 
 /**
  *
  * @author akhmim
  */
-@Entity
-@NamedQuery(name = "findAll", query = "from Machine")
-@NamedNativeQuery(name = "findAllNative", query = "SELECT * FROM machine", resultClass = Machine.class)
-public class Machine implements Serializable {
+public class Machine implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String ref;
     private String marque;

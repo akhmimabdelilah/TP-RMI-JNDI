@@ -7,6 +7,7 @@ package server;
 
 import dao.IDao;
 import entities.Machine;
+import entities.Salle;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
@@ -15,6 +16,7 @@ import java.rmi.registry.LocateRegistry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import service.MachineService;
+import service.SalleService;
 
 /**
  *
@@ -25,14 +27,16 @@ public class Server {
     public static void main(String[] args) {
         try {
             IDao<Machine> dao = new MachineService();
-            //    Demarer le registre avec le port par défaut 
 
+            //    Demarer le registre avec le port par défaut 
             LocateRegistry.createRegistry(1099);
+
             //    Mettre dans l'annuaire hibernate naming 
             Naming.bind("rmi://localhost:1099/dao", dao);
 
-//        IDao<Salle> dao2 = new SalleService();
-//        Naming.bind("rmi://localhost:1099/dao2", dao2);
+            IDao<Salle> idao = new SalleService();
+            Naming.bind("rmi://localhost:1099/idao", idao);
+
             System.out.println("Waiting for Customers");
 
         } catch (RemoteException | AlreadyBoundException | MalformedURLException ex) {
